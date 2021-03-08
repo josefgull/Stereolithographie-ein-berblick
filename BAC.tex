@@ -1,0 +1,404 @@
+\documentclass[a4paper,11pt,parskip]{scrreprt}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{titling}
+\usepackage{float}
+\usepackage{amsmath}
+\usepackage{chemformula}
+\usepackage{physics}
+\usepackage{derivative}
+\usepackage{csquotes}
+\usepackage[ngerman]{babel}
+\setcounter{tocdepth}{4}
+\setcounter{secnumdepth}{4}
+\usepackage{biblatex}
+\addbibresource[]{ref.bib}
+
+\begin{document}
+\title{ Stereolithographie, ein Überblick\\Bachelorarbeit  }
+\author{Josef Gull}
+\maketitle
+
+\begin{abstract}
+Abstract: Stereolithographie (SL) ist eine der präsentesten und vielseitigsten Technologien im Bereich Additive Manifacturing. Diese Arbeit soll Ingenieuren aus verschiedenen Disziplinen einen Überblick darüber geben, wie diese Technologie funktioniert und welche Objekte damit geschaffen werden können. Der Härtungsprozess wird mathematisch beschrieben und die chemischen Grundlagen des Verfahrens erläutert.
+\end{abstract}
+
+\tableofcontents
+
+
+\chapter{Einleitung}
+Additive Fertigungstechniken stellen einen großen Zukunftstrend in der Fertigung von unterschiedlichsten Gütern dar. Das liegt an den zahlreichen Vorteilen, welche die Technologie gegenüber traditionellen Fertigungstechniken bietet. Teile sollen on demand hergestellt werden, dies soll unter anderem Ersatzteillager wie z.B. in der Automobilindustrie obsolet machen. Prototypen können in nie dagewesener Iterationsgeschwingkeit produziert werden. Komplexe Geometrien, die bisher kaum herstellbar waren sind möglich geworden. Zu diesen ganzen Vorteilen kommt auch noch der ökonomische und ökologische Aspekt. Additive Manifacturing arbeitet mit minimalem Verbrauch an Baumaterialien. Um geeignete Maschinen zu bauen und Verfahren zu entwickeln ist es nötig, das Wissen aus verschiedensten Disziplinen zu bündeln, dazu zählen Chemie, Maschinenbau, Informatik sowie Elektrotechnik. Genauso vielseitig sind auch die Anwendungsgebiete. Diese reichen von medizinischen Anwendungen z.B. Prothesen, Knochen und Zähnen über die Automobilindustrie bis hin zu Projekten, bei denen Häuser gedruckt werden.
+\par
+Im Bereich Additive Manifacturing (AM) gibt es mittlerweile viele Technologien. Die präsentesten sind FDM (Fused Layer Deposition), SLS (Selektives Laser Sintering) und SL (Stereolitographie). SL ist dabei das älteste 3D-Druckverfahren und wurde 1984 von Chuck Hull zum Patent angemeldet. Dabei wird eine spezielle Druckflüssigkeit Schicht für Schicht so ausgehärtet, dass ein räumliches Objekt entsteht. Die chemische Zusammensetzung der Druckflüssigkeit ist einer laufenden Veränderung unterzogen, um die Eigenschaften des gedruckten Kunststoffs zu verbessern und für verschiedenste Anwendungen zu optimieren. Eine aktuelle Thematik stellt die additive Fertigung von Metallen und Keramiken mittels SL-Verfahren dar. Mit keinem anderen Verfahren im AM-Bereich lassen sich ähnlich kleine Auflösungen mit vergleichbar guten Oberflächen herstellen.   
+\par
+Im Kapitel ``Grundlegendes Arbeitsprinzip'' wird die physikalische und mathematische Beschreibung des Härtungsprozesses sowie der Aufbau von Maschinen erläutert. Zudem wird erklärt, wie sich die minimale Druckauflösung berechnet und welche  Arbeitsschritte nötig sind, um ein 3D-Objekt zu drucken. 
+\\Im Kapitel ``Chemische Reaktionen'' wird der Prozess der Photopolymerisation, welcher den Kern des Verfahrens darstellt, erklärt. Außerdem werden einige Monomere und Oligomere gezeigt. Im Kapitel ``Nichtpolymerisierbare Werkstoffe'' wird gezeigt, wie mit dem SL-Verfahren Keramik und Metall gedruckt werden kann.
+\\Im Kapitel ``Anwendungsgebiete'' werden einige konkrete Beispiele im Bereich der Medizin, Automobilindustrie und Flugzeugtechnik genannt. 
+
+
+\chapter{Grundlegendes Arbeitsprinzip}
+Zu Beginn werden die optischen Aspekte des Prozesses erläutert. Darauffolgend wird der Aufbau der Maschinen sowie deren Druckauflösung beschrieben. Am Schluss werden die wichtigsten Arbeitsschritte des SL-Verfahrens genannt.
+ 
+\section{Prozessübersicht}
+In diesem Kapitel soll zunächst erläutert werden, wie der Absorbtionsprozess beschrieben werden kann, um dann die Frage zu klären, wieviel Energie benötigt wird, um ein bestimmtes Volumen von Druckflüssigkeit zu härten. Außerdem soll veranschaulicht werden, wie das Bleichen beim Härten der Druckflüssigkeit das Absorptionsverhalten beeinflusst.
+
+
+\subsection{Absorption}
+Die Druckflüssigkeit besteht im Wesentlichen aus Photoinitiatoren, Monomeren und Oligomeren, welche im Prozess der Photopolymerisation, der in Kapitel \ref{po} näher beschrieben wird, polymerisiert werden. Dafür müssen die Photoinitiatoren aktiviert werden, indem diese Photonen absorbieren.
+
+Die Rate der aktivierten Initiatoren $n$ pro Zeit wird wie folgt berechnet \cite{mark2007physical}:
+\begin{equation}\label{ert}
+    \dv{n}{t}=\sigma\cdot F 
+\end{equation}
+Dabei gibt $\sigma$ den Wirkungsquerschnitt des Initiatormoleküls in $\mathrm{cm^2}$ an. Dieser kann so gedeutet werden, dass ein bestimmter Energiestrom durch diese Fläche fließen muss, um den Initiator zu aktivieren. F gibt den Photonenfluss in $\frac{photon}{s\cdot cm^2}$ an, dieser spiegelt die Anzahl der Photonen $p$ wieder, welche in einer Sekunde durch einen $\mathrm{cm^2}$ fließen.
+Der Photonenfluss F kann über die Intensität I in $\mathrm{W/cm^2}$ und die Energie eines Photons $E=h\cdot f$ in J berechnet werden. 
+\begin{equation}\label{in}
+    F=\frac{I}{h\cdot f}
+\end{equation}
+Dabei bezeichnet h das Plancksche Wirkungsquantum mit $6.62607015\cdot 10^{-34} \mathrm{Js}$ und f die Frequenz in $\mathrm{Hz=s^{-1}}$  der Photonen, welche sich in der Farbe des Lichts wiederspiegelt.
+
+
+
+Dringt Licht in ein absorbierendes Medium wie z.B. die Druckflüssigkeit ein, wird dieses gemäß dem Lambert-Beerschen Gesetz abgeschwächt. Die Intensität $I(z)$ in $\mathrm{W/cm^2}$ ist dabei abhängig von der Eindringtiefe $z$ in $\mathrm{cm}$ und dem Absorptionskoeffizienten $\alpha$ in $\mathrm{cm^{-1}}$. $I_O$ gibt die Intensität $I(z=0)$ an der Oberfläche an.  
+\begin{equation}\label{g}
+I(z) = I_O\cdot e^{-z\cdot \alpha} 
+\end{equation}
+Die Intensität nimmt exponentiell mit der Eindringtiefe $z$ ab und ist proportional zur Intensität an der Oberfläche.
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=0.5\textwidth]{Fotos/lambert.png}
+\caption{Lambert-Beer’sche Gesetz}
+\end{center}
+\end{figure}
+
+
+
+Bei Anwenden der Gleichung \ref{g} treten Diskrepanzen zwischen mathematischen Vorhersagen und echten Messungen bei auszuhärtenden Druckflüssigkeiten auf. Als mögliche Gründe werden das Ausbleichen der Druckflüssigkeit während des Härtens, sowie das Schrumpfen während des Härtens, welches eine lichtfokussierende Wirkung haben könnte, genannt. \cite{jacobs1992rapid}. Der Effekt des Ausbleichens wird in Kapitel \ref{blei} modelliert und simuliert.
+
+\subsection{Energie für die Polymerisation}
+Um zu berechnen, wieviel Energie in Form von Licht bereit gestellt werden muss, um einen $\mathrm{cm^3}$ an Flüssigkeit zu härten, muss zunächst berechnet werden, wieviele Initiatoren sich darin befinden. Durch Vorgaben der durchschnittlichen Länge der Polymere kann das Verhältnis Momomere zu Initiatoren bestimmt werden. Ist eine Kette beispielsweise 100 Glieder lang, so werden 1 Initiator und 100 Monomere benötigt, womit die Konzentration $k$ mit 1:100 gegeben ist.
+Um die Anzahl Initiatoren $x$ in $\mathrm{mol}$ in einem $\mathrm{cm^3}$ zu berechnen, müssen die molaren Massen $M_I$, $M_M$ in $\mathrm{g/mol}$ sowie die spezifischen Dichten $\rho_I$, $\rho_M$ in $\mathrm{g/cm^3}$ der Initiatoren und Monomere bekannt sein.
+Aus dem Gleichgewicht
+\begin{equation}
+\mathrm{1cm^3}=\frac{M_M}{\rho_M}\cdot \frac{x}{k}+\frac{M_I}{\rho_I}\cdot x 
+\end{equation}
+kann auf die Anzahl x umgestellt werden
+\begin{equation}
+x=\frac{\mathrm{1cm^3}}{\frac{M_M}{\rho_M}\cdot \frac{1}{k}+\frac{M_I}{\rho_I}}
+\end{equation}
+Durch Multiplizieren mit der Avogadro-Konstanten $N_A=6.02214076\cdot10^{23}$ kann die konkrete Anzahl der zu aktivierenden Initiatoren $n$ berechnet werden.
+\begin{equation}
+n=x\cdot N_A 
+\end{equation}
+Mit den üblichen Leistungen $P$ in $\mathrm{W}$  der verschiedenen Systeme lassen sich die zugehörigen Intensitäten $I=P/A$ angeben. Dabei wird die Leistung bei Projektor und LCD basierten Systemen über die ganze Bauplattform homogen verteilt abgegeben. Bei laserbasierten Systemen wird die meiste Leistung (86,5\%) innerhalb eines Kreises mit dem Radius $w_0$ inhomogen verteilt abgegeben. Zur Vereinfachung wird angenommen, dass 86,5\% der Leistung homogen über die Kreisfläche verteilt sind. Bei einer Bauplattformfläche von $10cm\cdot5,625cm$ und einem Radius von $w_0=0,1mm$ ergeben sich folgende Werte.
+\begin{table}[H]
+\begin{center}
+ \begin{tabular}{||c c c c||} 
+ \hline
+ Belichtungsystem & Leistung & Fläche & Intensität  \\ [0.5ex] 
+ \hline\hline
+ LCD & 1Watt &56,25$\mathrm{cm^{2}}$& 0,0178$\mathrm{W/cm^{2}}$ \\ 
+ \hline
+ Projektor & 2Watt&56,25$\mathrm{cm^{2}}$& 0,0356$\mathrm{W/cm^{2}}$\\
+ \hline
+ Laser & 5Watt&0,000314$\mathrm{cm^{2}}$&2753$\mathrm{W/cm^{2}}$\\
+ \hline
+\end{tabular}
+\caption{Übliche Leistungen und daraus resultierende Intensitäten}
+\end{center}
+\end{table} 
+Um die benötigte Belichtungszeit t in $\mathrm{s}$ zu berechnen, muss mittels Gleichung \ref{in}, von der Intensität auf den Photonenfluss rückgeschlossen werden. Nach Integration der Gleichung \ref{ert}, kann auf die Belichtungszeit umgestellt werden.
+\begin{equation}
+    t=\frac{n}{\sigma\cdot F}=\frac{n\cdot h\cdot f}{\sigma\cdot I}
+\end{equation}
+Aus der benötigten Belichtungszeit $t$ sowie der vom System zur Verfügung gestellten Leistung lässt sich die Energie E in $\mathrm{J}$ berechnen 
+\begin{equation}
+    E=P\cdot t
+\end{equation}
+
+
+\newpage
+\subsection{Bleicheffekt}\label{blei}
+ Um den Effekt des Ausbleichens der Druckflüssigkeit während des Härtungsprozesses zu simulieren, wurde ein diskretes Schichtenmodell (Abbildung \ref{dist}) modelliert, welches mit Photonen beschossen wird. Dabei sind die Absoptions-und Transmissionswahrscheinlichkeiten der einzelnen Schichten von den bereits absorbierten Photonen der jeweiligen Schicht abhängig. Für das Modell wurden folgende Annahmen gemacht.
+\begin{itemize}
+\item Die zu härtende Druckflüssigkeit wird in Schichten unterteilt.
+\item Jede Schicht $n$ besitzt zu Beginn eine konkrete Anzahl an nicht aktivierten Initiatoren $I_{0}$.
+\item Jede Schicht $n$ besitzt zu Beginn eine konkrete Absorptions-und Transmissionswahrscheinlichkeit $A_{0}$ und $T_{0}$ zwischen 0 und 1. Zusätzlich gilt $A_{0}+T_{0}=1$
+\item Die Photonen werden einzeln nacheinander auf das Schichtenmodell (Abbildung \ref{dist}) geschossen. Dabei gibt $p$ die Anzahl der bereits abgeschossenen Photonen an und $I_{n,p}$ die nach $p$ abgeschossenen Photonen in der Schicht $n$ aktivierten Initiatoren.
+\item Mit einer gleichverteilten Zufallsvariable wird entschieden, ob das Photon transmittiert oder absorbiert wird.
+\item Um den Bleicheffekt zu berücksichtigen ändern sich die Absorptions-und Transmissionswahrscheinlichkeiten der jeweiligen Schichten in Abhängigkeit vom Verhältnis aktivierter Initiatoren zu nicht aktivierten Initiatoren.
+\\Die aktuelle Absorptionswahrscheinlichkeit $A_{n,p}$ der $n$-ten Schicht nach $p$ abgeschossenen Photonen wurde wie folgt modelliert:
+\begin{equation}
+A_{n,p}= A_{0}\cdot \frac{I_{0}-I_{n,p}}{I_{0}} 
+\end{equation}
+\\Die aktuelle Transmissionswahrscheinlichkeit $T_{n,p}$ der $n$-ten Schicht nach $p$ abgeschossenen Photonen wurde wie folgt modelliert:
+\begin{equation}
+T_{n,p} = 1-A_{n,p}
+\end{equation}
+\item Am Schluss wird geplottet, wieviele Initiatoren in den jeweiligen Schichten aktiviert wurden. 
+\end{itemize}
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=40mm]{Fotos/Diskretes_modell.png}
+\caption{Diskretes Schichtenmodell}\label{dist}
+\end{center}
+\end{figure}
+Wie erwartet zeigt das diskrete Modell für den Fall, dass der Bleicheffekt nicht berücksichtigt wird, ein exponentielles Abklingen (bei logarithmischer Achsenbeschriftung linear). Wird jedoch der Bleicheffekt berücksichtigt, zeigt sich, dass die ersten Schichten weniger Photonen absorbieren. Das Licht dringt dafür tiefer in die Druckflüssigkeit ein.
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=120mm]{Fotos/bleicheffekt.png}
+\caption{Gegenüberstellung der Eindringtiefe mit und ohne Bleicheffekt,$A_0=0.4$}
+\end{center}
+\end{figure}
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=120mm]{Fotos/bleicheffekt0.8.png}
+\caption{Gegenüberstellung der Eindringtiefe mit und ohne Bleicheffekt,$A_0=0.8$}
+\end{center}
+\end{figure}
+
+
+
+
+\newpage
+\section{Aufbau der Maschinen}
+Im Wesentlichen unterscheiden sich die Systeme in den Lichtquellen, die zum Aushärten der Druckflüssigkeit verwendet werden. Zum Einsatz kommen Laser, LC Displays oder Projektoren. Die Lichtquellen besitzen ein Spektrum im sichtbaren und oder im UV (100-780 nm) Bereich. UV-Quellen werden aufgrund der höheren Photonenanzahl pro Joule bevorzugt.
+
+Ein anderes Kriterium zur Einteilung der Maschinen sind die Bewegungsabläufe von Bauplattformen sowie mögliche Kippbewegungen von Wannen. Die Funktionsweise der Maschinen kann in Bottom-up und Top-down gliedert werden.
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=0.9\textwidth]{Fotos/Top-downvsBottm_up.png}
+\caption{Top-down vs Bottom-up}\label{td-bu}
+\end{center}
+\end{figure}
+Die Methoden unterscheiden sich dadurch, dass bei der Top-down Bauweise von oben belichtet wird und bei der Bottom-up Bauweise von unten durch ein transparentes Fenster in der Wanne (In englischsprachiger Literatur vat).
+Bei der Top-down Bauweise wird nach jeder Belichtungsphase die Bauplattform abgesenkt, damit wieder neue Druckflüssigkeit auf die Oberseite des Drucks gelangt. Dann wird die Bauplattform wieder auf das Level angehoben auf dem belichtet wird. Mit einer mechanischen Vorrichtung wird nun die überflüssige Druckflüssigkeit abgezogen und ein neuer Belichtungszyklus beginnt.
+\\Die Bottum-up Bauweise gewinnt immer mehr an Bedeutung unter anderem deswegen, weil sie keine Vorrichtung benötigt, um die Druckflüssigkeit abzuziehen. Allerdings muss hier berücksichtigen werden, dass das Photopolymer nicht nur an der Baufläche, sondern auch an der Wanne kleben bleibt \cite{srivastava2019additive}. Während günstige Drucker mit kleinen Bauplattformen meist darauf beschränkt sind dieses Problem mittels Einstellungen an Schichtdicke und Belichtungszeit in den Griff zu bekommen, werden bei teureren Geräten oft kippbare Wannen eingesetzt. Nach jedem Belichtungszykus wird die Wanne nach unten gekippt, sodass sich dabei der Druck langsam und möglichst stressfrei von der Wanne lösen kann.
+
+\section{Druckauflösung}
+Die kleinstmögliche Auflösung, die eine Maschine drucken kann, ist abhängig von der Mechanik, der Art der Lichtquelle sowie der Chemie. Abhängig von der Lichtquelle verfügt die Maschine über einen oder drei mechanische Freiheitsgrade.
+\\
+Bei Maschinen, die einen Projektor oder ein LC-Display als Lichtquelle nutzen, wird nur eine bewegliche Z-Achse benötigt. Zur Ansteuerung der Z-Achse kommen meist Schrittmotoren zum Einsatz, welche Kugelumlaufspindeln antreiben. Bei Antrieben dieser Art kann die mechanische Auflösung berechnet werden, indem der kleinstmögliche Schrittwinkel mit der Steigung der Spindel multipliziert wird. Bei einem Schrittwinkel von 1,8° und einer Spindelsteigung von 3mm/Umdrehung berechnet sich die Auflösung zu:
+\begin{equation}
+min_Z=1.8^\circ\cdot\frac{3mm}{360^\circ}=150\mathrm{\mu m}
+\end{equation}
+Die kleinste laterale Auflösung ($min_X$ und $min_Y$) ist durch die Pixelgröße gegegeben. Bei einer Pixelanzahl von 1920 × 1080 (HD) auf einer Baufläche $l\cdot b$ von $10cm\cdot5,625cm$ errechnet sie sich zu:
+\begin{equation}
+min_X=\frac{l}{Pixel_{Reihen}}=\frac{10cm}{1920}=52.08\mu\mathrm{m}
+\end{equation}
+\begin{equation}
+min_Y=\frac{b}{Pixel_{Spalten}}=\frac{5.625cm}{1080}=52.08\mathrm{\mu m}
+\end{equation}
+
+Bei laserbasierten Systemen erfolgen Bewegungen in der Z-Richtung analog zu projektorbasierten Systemen. Allerdings wird auch für die laterale Auflösung eine mechanische Vorrichtung (Spiegelscanner) benötigt. Diese besteht aus einem Spiegel, welcher drehbar gelagert ist und von 2 Motoren bewegt werden kann. Dabei lenkt der erste Motor den Strahl in X-Richtung und der zweite den Strahl in die Y-Richtung ab. Zusätzlich wird die Auflösung durch die Form des Laserstrahles bestimmt. Gaußsche Strahlen, welche die lokale Intensität und damit die Form des Laserstrahls beschreiben, sind radialsymmetrisch und werden üblicherweise in Zylinderkoordinaten angeschrieben. Für die Formulierung wichtig ist der minimale Strahlradius $w_0$, welcher den Radius an der engsten Stelle des Strahles, dem Focus, angibt. Der Strahlenradius $w_z$ ist dadurch charakterisiert, das die lokale Intensität (lokale Flächenleistungsdichte) um den Faktor 1/e kleiner ist als die in der Strahlenachse $r=0$. Durch die Größe $w_0$ ist der Radius für den kleinsten realisierbaren Kreis gegeben. Bei Ablenkung des Strahls aus der Bauplattformmitte nimmt der kreisförmige Laserfokus eine elliptische Gestalt an, wodurch die Auflösung verringert wird. Im Zentrum der Bauplattform ist die Auflösung damit größer als am Rand.
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=0.9\textwidth]{Fotos/Spiegelscanner.png}
+\caption{Spiegelscanner}
+\end{center}
+\end{figure}
+
+
+Der kleinstmögliche Bereich, welcher in der Bauplattformmitte gehärtet werden kann, ist gleich dem Laserfokus.
+Der kleinstmögliche Bereich, welcher in einer der Ecken der Bauplattformm gehärtet werden kann, ist abhängig von dem Abstand z zwischen Spiegelscanner und Bauplattform sowie von der Größe der Bauplattform $l\cdot b$. 
+Der Winkel $\alpha$ zwischen Z-Achse und Laserstrahl berechnet sich zu: 
+\begin{equation}
+\alpha=\arccos{\frac{z}{\sqrt{z^2+(\frac{l}{2})^2+(\frac{b}{2})^2}}}
+\end{equation}
+Die Projektion des Laserstrahls hat eine elliptische Gestalt, welche abhängig von dem Einfallswinkel ist.
+Die Nebenachse ist gleich dem doppelten Strahlenradius $w_0$. Die Hauptachse $h$ berechnet sich zu:
+\begin{equation}
+h=\cos{\alpha}\cdot 2 \cdot w_0
+\end{equation}
+Der Winkel $\alpha$ bestimmt die Abweichung der kleinsten möglichen zu beleuchtenden Fläche und damit indirekt proportional dazu die dafür benötigte Zeit.
+Bei einem Winkel $\alpha$ von 20$^\circ$ beträgt der Unterschied der zu beleuchtenden Fläche 6,4$\%$.
+\begin{equation}
+\frac{A_{Kreis}}{A_{Ellipse}}=\frac{\pi \cdot w_0^2}{\pi \cdot w_0^2 \cdot \cos{\alpha}}=\frac{1}{\cos{20^\circ}}=1.064
+\end{equation}
+Wird der maximale Winkel $\alpha$ auf 5$^\circ$ reduziert, unterscheiden sich die Flächen nur mehr um 0.38$\%$.
+
+\newpage
+\section{Vom 3D-Modell zum physischen Objekt}
+Zunächst muss ein 3D-Modell erstellt werden. Dazu kann 3D-Zeichensoftware (CAD) verwendet werden. Danach wird mit dem Slicer, einem Softwaretool, das 3D-Modell der Höhe nach in Schichten unterteilt. Es wird für die jeweilige Schicht berechnet, an welchen Stellen die Druckflüssigkeit auszuhärten ist. Daraus werden dann letztendlich je nach mechanischem Aufbau der Maschine, die Maschinenpfade für den Laser oder die einzelnen Bilder für Projektor oder LCD basierte Systeme generiert. Sobald die Pfade/Bilder zur Verfügung stehen kann mit dem Druck begonnen werden. Das zu druckende Objekt wird Schicht für Schicht aufgebaut. Jede Schicht (Layer) wird realisiert, indem an gezielten Stellen die Druckflüssigkeit ausgehärtet wird.
+
+\subsection{Slicing}
+Beim Slicing werden die am Rechner gezeichneten Modelle in konkrete Anweisungen für die Maschine übersetzt. Dazu schneidet die Slicersoftware das Modell der Höhe nach in Scheiben und berechnet für jede Scheibe, wo die Druckflüssigkeit ausgehärtet werden muss. In den meisten Slicersoftwaretools stehen einige Parameter zum manuellen Einstellen zur Verfügung, die meist entscheidenden Einfluss auf die Qualität und die Druckdauer haben. Die wichtigsten Parameter sind Schichtdicke (Layerheight) sowie Belichtungszeit. Des Weiteren werden oft Tools angeboten, um sogenannte Supports (Stützstrukturen) zu errichten. Diese dienen dazu, filigrane Teile des Modells besser drucken und stützen zu können. Sie werden also nur während des Drucks benötigt, um komplexe Geometrien oder sogenannte Overhangs, also Brückenstrukturen, zu stützen. Nach dem Druck sollte das Objekt genügend mechanische Stabilität besitzen, damit die Supports entfernt werden können. Um die Haftung an der Bauplattform zu erhöhen und damit zu verhindern, dass sich das Objekt während des Drucks von der Plattform löst, können die ersten Layer zusätzlich mit einem Rand (brim) ca 2 $\mathrm{cm}$ ausgestattet werden. Auch die Ausrichtung des Objekts auf der Bauplattform ist für einen sauberen Druck wesentlich. Die meisten Slicer machen dies automatisch. Wenn die Ausrichtung manuell gemacht wird, sollte dies so geschehen, dass möglichst wenige Overhangs entstehen und damit wenige Stützstrukturen benötigt werden. Außerdem ist zu beachten, dass bei LCD und projektorbasierten Systemen die Druckdauer nur von der Höhe des Modells auf der Bauplattform abhängt.
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=0.9\textwidth]{Fotos/slicer.png}
+\caption{Slicertools: Stützstrukturen (links), Brim (rechts)}\label{slicer}
+\end{center}
+\end{figure}
+In der Abbildung ~\ref{slicer} ist links die Stützstrukturen in der opensorce Software PrusaSlicer zu sehen. Rechts ist der brim (hellblau) in der opensorce Software Cura zu sehen.
+
+\subsection{Postprocessing}
+Wird ein Druck nach Abschließen des Druckvorganges aus der Maschine geholt, folgt das Postprocessing, um das Ergebnis zu optimieren. Da der Druck in diesem Stadium noch nicht vollständig ausgehärtet ist, muss darauf geachtet werden, dass währende des Postprocessings der 3D-Druck keinen großen Kräften ausgesetzt wird. Zu Beginn wird der Druck gereinigt. Dies geschieht in dem flüssige Polymerreste mit Isopropanol abgespült werden. Dann werden die Supports sowie der Brim mit Seitenschneider und anderem passendem Werkzeug entfernt. Nun sollte der Druck die gewünschte Endform besitzen und kann entweder im Sonnenlicht oder mit speziellen UV-Lampen ausgehärtet werden. 
+
+
+
+\chapter{Chemische Reaktionen}
+Die Organische Chemie (OC) ist das Teilgebiet der Chemie, welches sich mit chemischen Verbindungen beschäftigt, die auf Kohlenstoffbindungen basieren. Von diesen gibt es aufgrund der hohen Bindungsfreudigkeit von Kolhenstoffatomen sehr viele. Um Kunststoffe zu kategorisieren werden diese oft nach ihren mechanischen Materialeigenschaften sowie dem Verhältnis von Gebrauchstemperatur zu Glasübergangstemeratur oder Schmelzpunkt eingeteilt. In Abbildung~\ref{einteilungderkunststoffe} ist die Struktur der Molekülketten der jeweiligen Kunstoffarten zu sehen. Mechanische Eigenschaften sind im Wesentlichen auf diese molekulare Struktur zurückzuführen.
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=100mm]{Fotos/Einteilung_der_Kunststoffe.png}
+\caption{Einteilung der Kunststoffe}\label{einteilungderkunststoffe}
+\end{center}
+\end{figure}
+FDM-Drucker (Fused model deposition) verwenden Thermoplaste, um sie zu schmelzen, in Form zu bringen und anschießend wieder auskühlen zu lassen. Beim SL-Verfahren kommen hingegen Duroplaste zum Einsatz. Zur Herstellung von Kunststoffen gibt es verschiedene Verfahren: sie werden in Polyaddition, Polykondensation und Polymerisation gegliedert. Beim SL-verfahren wird eine spezielle Form der Polymerisation verwendet, die Photopolymerisation. Diese Reaktion ist dafür verantwortlich, dass die Druckflüssigkeit punktuell aushärtet. Im Folgenden wird der Prozess auf einer systematischen Ebene beschrieben. Im Kapitel~\ref{mono} werden dann die konkret verwendeten Materialien beschrieben. Photopolymere bestehen grundsätzlich aus drei Hauptbestandteilen, Polymeren, Oligomeren und Photoinitiatoren.
+
+
+\section{Ketten-Polymerisation}
+Die Polymerisation beschreibt den Prozess, bei dem sich viele gleichförmige Moleküle (Monomere) zusammenfügen und ein großes Molekül (Polymer) bilden. Dabei müssen die Monomere mindestens eine Doppelbindung besitzen, die im Lauf des Prozesses in zwei einfache Bindungen aufgetrennt werden kann. Der Prozess kann in drei Phasen unterteilt werden, Kettenstart, Kettenwachstum und Kettenende.
+Der Kettenstart kann radikal oder kationisch erfolgen. Radikale gehen aus homolytischen Spaltungen hervor, dabei wird eine kovalente Bindung durch Licht oder Wärme getrennt. Beide Bindungspartner haben weiterhin ihr Bindungselektron. Kationen entstehen bei heterolytischen Spaltungen. Bei dieser Spaltung zieht das elektronegativere Teilchen beide Bindungselektronen an sich, sodass ein negatives Teilchen (Anion) und ein positives Teilchen (Kation) entstehen. Für den kationischen Kettenstart wird zu nächst ein Kation benötigt, z.B. H$^{+}$. Bei Kontakt zwischen Kation und Monomer klappt eine Doppelbindung des Monomers auf und bindet das Kation. Nun besitzt das Molekül wieder einen positiven Ladungsüberschuss und kann sich an das nächste Monomer binden. Das Kettenende kann durch Bindung mit einem Anion erfolgen.
+\\Radikale sind Atome oder Moleküle, die Elektronen besitzen, die nicht paarweise gebunden sind. Diese sind hoch reaktiv und binden sich daher gerne an Monomere. Dieser Prozess ist der Kettenstart. Das Kettenwachstum erfolgt wie bei der kationsch gestarteten Polymerisation. Das Kettenende erfolgt durch Rekombination oder Disproportionierung. Bei der Rekombination gelangen zwei radikale Ketten aneinander, wobei sich die zwei ungepaarten Elektronen zu einem stabileren Elektronenpaar bilden. Bei der Disproportionierung gibt es zwei Radikale in Form von aneinander geketteten Monomeren. Am Ende der jeweiligen Kette befindet sich ein ungepaartes Valenzelektron. Nun bindet sich Radikal 1 mit einem beliebigen Wasserstoffatom von Radikal 2, wobei die Kette von Radikal 1 beendet wird. Bei Radikal 2 ist durch das Abtrennen des Wasserstoffatoms ein Elektron frei, das sich mit dem ungepaarten Valenzelektron in Form einer Doppelbindung bindet. Somit ist auch die zweite Kette beendet.\cite{masterthese} 
+
+\section{Stufenwachstums-Polymerisation}
+Stufenwachstums-Polymerisation unterteilen sich in Polyaddition und Polykondensation. Bei der Polyaddition erfolgt das Kettenwachstum über Additionsreaktionen. Anders als bei der Ketten-Polymerisation wird die Kette nicht immer nur um ein einzelnes Monomer erweitert. Es können sich auch zwei Ketten zu einer längeren Kette verbinden.
+\\Bei der Polykondensation wird für jedes Monomer, das an die Kette gebunden wird, ein Molekül abgespalten, dies ist häufig Wasser.
+\newpage
+\section{Photopolymerisation}\label{po}
+Bei der Polymerisation werden die einzelnen Monomere und Oligomere, die in flüssiger Form vorliegen, zu Ketten zusammengefügt, wodurch der Kunststoff fest wird. Damit diese Aushärtung erst unter dem Einfluss von Licht passiert, befinden sich in der druckbaren Flüssigkeit sogenannte Photoinitatoren. Diese haben die Aufgabe, unter Lichteinstrahlung, die Verkettung von Monomeren und Oligomeren zu ermöglichen. Photoinitatoren werden in zwei Hauptgruppen unterteilt, Radikale Systeme und Kationische Systeme. 
+\subsection{Radikale Systeme}
+Radikale haben die Eigenschaft sehr reaktiv zu sein, das heißt, dass die Dauer von der Entstehung des Radikals bis zum Zeitpunkt, an dem es sich an ein anderes Molekül bindet, sehr kurz ist. Damit eignen sich diese Systeme gut, um schnell zu drucken. Radikale Systeme können in 2 Kategorien unterteilet werden, Typ1 und Typ2.
+\\Typ1-Initiatoren bestehen aus einem einzigen Molekül und zerfallen bei einstrahlendem Licht der richtigen Wellenlänge in reaktive Substanzen. Beispiele für Typ1-Initiatoren sind Bezilketale, Acrylphosphinoxide und auf Germanium basierende Initiatoren. Die letzten beiden sind in AM-Anwendungen beliebter, da sie den Vorteil haben, dass sie zum Reagieren größere Wellenlängen benötigen. Dabei tritt häufig ein Bleicheffekt auf, der es ermöglicht, das Polymer rasch zu vernetzen.
+\\Typ2-Systeme bestehen aus 2 Komponenten, einem lichtabsorbierenden Molekül und einem Co-Initiator. Beispiele Für Typ2-Systeme sind (Meth)acrylat und Thiol-ene.
+\cite{ligon2017polymers}
+
+\subsection{Kationische Systeme}
+Hierbei wird das Kation, das zum Kettenstart benötigt wird, aus einer heterolytischen Spaltung gewonnen. Epoxide können sowohl kationisch als auch mit Hilfe von Aminen gehärtet werden. Dabei führt das Härten mittels Kationen zu mehr Kreuzverbindungen zwischen den Polymeren, was eine erhöhte Sprödigkeit zur Folge hat. Um dem entgegen wirken zu können werden Alkohole beigemischt. Epoxide werden aber selten alleine eingesetzt, da diese eine längere Zeit zum Aushärten benötigen. Sie deshalb zum Beispiel mit Vinylether gemischt, welcher wesentlich rascher reagiert.
+\newpage
+\subsection{RAFT-Polymerisation}
+Das Akronym RAFT steht für reversible addition-fragmentation chain transfer.
+Bei der Raft Polymerisation steht gibt es 3 Reaktionsteilnehmer: Iniator, Monomer und Chain-transfer-agent (CTA). Die Initiatoren liegen im Vergleich zu gewöhnlichen Kettenpolymerisation in einer niedrigeren Konzentration vor. Da der Kettenstart rascher als die Propagation erfolgt, wird davon ausgegangen, dass unmittelbar nach dem Vermischen der Chemikalien alle möglichen Ketten gestartet  und gleich lang sind. Die Ketten können sich nun wie bei der Kettenpolymerisation Glied für Glied fortpflanzen. Das Kernstück des RAFT-Prozesses ist der CTA, welcher ein Molekül ist, das Radikale speichern kann und an andere Ketten übertragen kann. Bei der Radikalischen Polymerisation besitzt das Monomer, welches zuletzt an die Kette gefügt wurde, das Radikal, welches für die Propagation benötigt wird. Durch den CTA kann dieses Radikal nun von der Kette gelöst werden, wodurch ihr Wachstum temporär gestoppt wird.
+In der ersten Phase des Prozesses werden dann radikalische Kohlenwasserstoffgruppen vom CTA abgespalten, welche als neue Initatoren für Polymere dienen. In einer späteren Phase des Prozesses bindet der CTA jeweils zwei Polymere, welche er abwechselnd als Radikal abstößt und wieder bindet. Durch das RAFT-Gleichgewicht werden Polymere synthetisiert, deren Kettenlängen statistisch eng verteilt sind.
+\cite{chiefari1998living}
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=0.9\textwidth]{Fotos/raft1.png}
+\caption{RAFT-Polymerisation}\label{raft}
+\end{center}
+\end{figure}
+
+\newpage
+
+
+\section{Monomere und Oligomere}\label{mono}
+\subsection{Acryl und Methacryl}
+Acryl ist ein Sammelbegriff für Substanzen, welche durch die chemische Verbindung \ch{CH2=CH–COR} dargestellt werden. Acryl bietet den Vorteil, dass die Polymerisation sehr rasch verläuft, was zu schnellen Druckzeiten führt, da eine relative kurze Belichtungsdauer genügt, um einen stabilen Grünkörper zu bilden. Der Nachteil ist, das die Monomere nicht so kompakt sind und daher die Flüssigkeit bei der Polymerisation schrumpft.
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=40mm]{Fotos/acryl.png}
+\caption{Acrylgruppe}
+\end{center}
+\end{figure}
+Die Bezeichnung Meth in Methacryl steht für eine Methylgrupe $(C-H_{3})$, die an das Acryl gebunden ist. Methacryle sind in letzter Zeit sehr im Auge der Forschung. Grundsätzlich haben sie die Nachteile, dass die Stoffe nach dem Aushärten meist spröde sind, was auf den Schrumpfprozess und die Kreuzverbindungen zurückzuführen ist. Allerdings können diese Schwächen mittels RAFT-Prozess deutlich verbessert werden.
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=40mm]{Fotos/Methacrylic.png}
+\caption{Methacrylsäure}
+\end{center}
+\end{figure}
+
+\newpage
+\subsection{Epoxid}
+Epoxide sind eine chemische Stoffgruppe sehr reaktionsfähiger cyclischer organischer Verbindungen. Epoxide sind durch einen Dreiring, wobei ein Teilnehmer Sauerstoff ist, charakterisiert. Epoxidharze sind härtbare Kunstharze. Diese Harze können mittels einem Härter zu duroplastischem Kunststoff verarbeitet werden. Da die Monomere hier Ringstrukturen enthalten, sind sie kompakter als Acryle und schrumpfen bei der Polymerisation deutlich weniger als Acryle. In Abbildung~\ref{Epoxy} ist der für die Epoxide charakteristische Dreiring in blau zu erkennen.  
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=40mm]{Fotos/epoxy.png}
+\caption{Epoxid}\label{Epoxy}
+\end{center}
+\end{figure}
+
+\subsection{Thiol}
+Thiole sind Kohlenwasserstoffe, die eine Schwefelwasserstoffgruppe tragen.
+Thiol-ene Reaktionen sind Reaktionen zwischen Thiolen und Alkenen, also Kohlenwassenstoffen die mindestens eine Doppelbindung enthalten dar.   
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=40mm]{Fotos/Thiole.png}
+\caption{Thiol}\label{thiol}
+\end{center}
+\end{figure}
+
+\subsection{Vinylzyklopropane}
+Vinyle sind Ethenstrukturen, bei denen ein Wasserstoffatom durch eine Kohlenwasserstoffkette ersetzt worden ist. Im Fall von Vinylzyklopropan ist diese Kette ein Kohlenstoffdreiring. Neben mit RAFT-Agent versetzten Methacrylaten stellen sie eine Möglichkeit dar, stabilere Kunststoffe zu produzieren. Das Schrumpfen wird hier durch Ringöffnung bei der Bindung reduziert.
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=40mm]{Fotos/Vinyl.png}
+\caption{Vinyl}\label{Vinyl}
+\end{center}
+\end{figure}
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=40mm]{Fotos/Cyclopropan.png}
+\caption{Zyklopropan}\label{zyklopropan}
+\end{center}
+\end{figure}
+
+
+
+
+
+\chapter{Nichtpolymerisierbare Werkstoffe}
+\section{Keramik}
+Keramiken können grob als Materialien klassifiziert werden, die nicht aus Metall oder organischen Verbindungen bestehen. Beispiele für bekannte Keramiken sind Glas, Porzellan oder aber auch Ziegel. Keramiken sind deshalb so interessant, weil sie exzellente mechanische Eigenschaften besitzen, sie sind oft härter und temperaturbeständiger als Kunststoffe und Metalle. Mit bisherigen Verarbeitungsmethoden konnten komplexe Geometrien nicht gefertigt werden. Keramik kann mittels SL-Verfahren auf direktem oder indirektem Weg verarbeitet werden. Bei der indirekter Verarbeitung werden Gussformen für Keramik oder Metall herstellt. Bei der direkten Methode werden herkömmliche Druckflüssigkeiten mit keramischem Pulver versetzt. Allerdings erhöht dies die Ansprüche an die druckbare Flüssigkeit wesentlich. Zunächst ist es wichtig, dass das Pulver mit einer konstanten Korngröße vorliegt. Des weiteren ist es wichtig, dass nach Vermischen des Pulvers mit dem Photopolymer noch immer eine Viskosität aufweist, die niedrig genug ist, um eine homogene Verteilung in der Wanne der Maschine zu gewährleisten. Zusätzlich ändern sich die benötigten Belichtungsintensitäten, da die Keramikpartikel ein anderes Verhalten bezüglich Absorption und Reflexion besitzen. Im ersten Schritt des Fertigungsprozesses wird genau wie beim Druck von Kunststoffen ein Grünkörper hergestellt. Bei dem Grünkörper müssen gegebenfalls wieder Stützstrukturen entfernt werden. Dann wird dem Grünkörper der Binder entzogen. Dies geschieht in einem Ofen. In einem weiteren wesentlich heißerem Ofen findet nun der Sinterprozess statt, bei dem viele kleine Körner an den Korngrenzen verschweißen. Dabei verkleinert sich die Oberfläche und Energie wird frei. Bei diesem Prozess schrumpft das Bauteil weiter, dieser Effekt ist im CAD-Design eine Herausforderung für die Ingenieure. Zu druckende Bauteile müssen nicht nur größer designt werden, als sie im Endeffekt sind, es muss auch darauf geachtet werden, dass sich das Bauteil durch das Schrumpfen im Ofen nicht selbst zerstört. Die derzeit erreichbare Dichte der Keramiken liegt bei bis zu 99\%.
+\\Beliebte Keramiken sind: Aluminumoxid, Zirkoniumoxid und Siliciumnitrid. Sie werden für Knochenimplantate, Dentalimplantate, Maschinenbauanwendungen, bei denen die thermische Belastung sehr hoch ist, und vielem mehr verwendet. \cite{chen20193d}
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=0.9\textwidth]{Fotos/keramiken lithos.png}
+\caption{Keramische Bauteile gedruckt von der Firma Lithoz}
+\end{center}
+\end{figure}
+
+\section{Metall}
+Die Verarbeitung von Metall ähnelt stark der Keramikverarbeitung. Auch hier kommt eine Suspension, also eine Druckflüssigkeit mit untergemischtem Metallpulver zum Einsatz, um im ersten Schritt einen Grünkörper zu produzieren. Die Suspension kann bis zu 50 Volumenprozent an Pulver enthalten. Die Druckflüssigkeit muss eine gewisse Transluzenz aufweisen, um zu gewährleisten, dass die einzelnen Schichten gut miteinander verbunden werden. Dabei sollte die Durchhärtungstiefe zwei bis drei Mal so dick wie die Schichtdicke sein. Bei 320°C wird dann entbindert. Dabei werden organische Bestandteile zersetzt und verdampfen an der Metalloberfläche. Bei höheren Temperaturen könnte das Metall oxidieren. Nach dem Entbindern folgt der Sinterprozess, bei dem die Temperatur unter dem Schmelzpunkt des jeweiligen Metalls gehalten werden muss. Nach dem Sintern können Dichtegrade von über 98\% erreicht werden.
+\cite{homa2017lithographiebasierte}
+
+
+
+
+
+
+
+
+\chapter{Anwendungsgebiete}
+Die Stärken des SL-Verfahren kommen am besten zu Geltung, wenn Teile mit geringer Stückzahl gefertigt werden sollen, die eine komplexe Geometrie aufweisen. In diesem Kapitel werden Anwendungsgebiete gezeigt, in denen die Stereolithographie präsent ist.
+
+
+\section{Anwendungen in der Medizin}
+\subsection{Implantate und Prothesen}
+Prothesen für Arme und Beine werden meist auf dem indirekten Weg hergestellt. Da die Druckflüssigkeiten oft nicht die gewünschten mechanischen Eigenschaften aufweisen, können hierfür zum Beispiel Gussformen mit einer hohen Komplexität und Auflösung hergestellt werden. Andere Prothesen und Implantate, an die geringere mechanische Anforderungen gestellt werden wie z.B passgenaue Hörgeräte, können auf direktem Weg gedruckt werden.
+\par
+Bildgebende Verfahren in der Medizin sind weit verbreitet, diese sollen aber nicht nur noch zu Analysezweken genutzt werden. Daten, die von CT und MRT erhoben werden, können als Ausgangspunkt gesehen werden, von dem aus mittels Stereolithographie verschiedenste Körperteile nachgebaut werden können. Die Nachbauten können unterschiedlichen Zwecken dienen. Eine Anwendung ist das Simulieren kritischer Operationen. Wenn die Situation bereits im Vorfeld an einem exakten Modell nachgespielt werden kann, können Fehler vermieden und Zeit gespart werden. In der plastischen Chirurgie können so unter anderem Implantate für die Replikation von Gesichtsknochen von Traumapatienten hergestellt werden. Auch bei Knochenkrebspatienten sollen Knochen gegen 3D-gedruckte Implantate getauscht  werden können. Für Implantate werden zusätzliche Anforderungen an das Druckmaterial gestellt. Das verwendete Material darf nicht toxisch sein, sollte nach Möglichkeiten biologisch abbaubar und somit wieder durch Körper eigenes Gewebe ersetzt werden und muss den jeweiligen mechanischen Belastungen gewachsen sein.
+\cite{melchels2010review}
+\subsection{Gewebezüchtung}
+Gewebezüchtung ist allgemein bekannter unter dem englischen Wort tissue engeneering. Eine große Aufgabe stellt das Drucken von Gerüsten dar, an denen Gewebe anwachsen kann. In der Literatur ist diese Disziplin unter dem Namen tissue engineering scaffolds zu finden. Dabei werden Materialen hochporös gedruckt, um dem Gewebe möglichst viel Oberfläche zum Anwachsen zu geben. Die Zellen sollen an der Oberfläche mithilfe von Proteinen andocken und dadurch an das Material gebunden werden. Zusätzlich werden in diesen Implantaten bioaktive Substanzen zugefügt, um das Wachstum der Zellen weiter anzuregen. \cite{melchels2010review}
+
+\section{Anwendungen in der Automobilindustrie}
+Das SL-Verfahren wird in der Automobilindustrie hauptsächlich zur Produktentwicklung genutzt. Hier werden oft Maschinen mit sehr großen Bauvolumen benötigt. Ein beliebter Anwendungsfall ist das Designen von Dashboards. Dadurch kann dieses Bauteil oft und leicht abgeändert werden. Nach dem Entwicklungsprozess kann eine aufwendig herzustellende Spritzgussform für die Massenproduktion gefertigt werden. Auch Karosserieteile werden nach diesem System produziert. Hier kann neben der Optik auch das aerodynamische Verhalten des Teils im Windkanal gemessen werden. Einige Druckflüssigkeiten haben auch die Eigenschaft im gehärteten Zustand durchsichtig zu sein, dies eignet sich vor allem bei der Produktentwicklung von Scheinwerfern. 
+
+\section{Anwendungen in der Luft und Raumfahrt}
+Im Flugzeugbau wird die Technik ähnlich wie in der Automobilindustrie verwendet und ist somit ebenfalls häufig in der Produktentwicklung zu finden.
+
+Für die Raumfahrt ist die Additive Fertigung von besonderer Wichtigkeit. Es müssen Raketenteile optimal gestalten werden, damit sie den einwirkenden Kräften standhalten und dabei nicht zu schwer sind. Auch für künftige Missionen zu anderen Planeten ist die Additive Fertigung unabdingbar. Da in Raketen nur bedingt Transportkapazitäten zur Verfügung stehen, müssen verschiedenste Dinge aus Materialien vor Ort produziert werden. Die Firma Lithoz hat mit ihren Stereolithographiemaschinen bereits syntetischen Mondstaub gedruckt. \cite{lithoz2019innovationsminister}         
+
+
+
+\printbibliography
+\listoffigures
+
+\newpage
+Hiermit erkläre ich, dass die vorliegende Arbeit ohne unzulässige Hilfe Dritter und ohne Benutzung
+anderer als der angegebenen Hilfsmittel angefertigt wurde. Die aus anderen Quellen oder indirekt
+übernommenen Daten und Konzepte sind unter Angabe der Quelle gekennzeichnet.
+Die Arbeit wurde bisher weder im In– noch im Ausland in gleicher oder in ähnlicher Form in anderen
+Prüfungsverfahren vorgelegt.
+\\Wien, \today
+
+
+
+Josef Gull
+
+\end{document}
